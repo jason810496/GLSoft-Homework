@@ -18,7 +18,7 @@ export default {
   },
   data(){
     return {
-      selectedTheme: localStorage.getItem('theme') || 'light'
+      selectedTheme: localStorage.getItem('theme') || 'default'
     }
   },
   methods: {

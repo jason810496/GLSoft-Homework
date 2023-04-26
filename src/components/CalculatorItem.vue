@@ -129,7 +129,7 @@ button {
   margin: 6px;
   padding: 20px 0px;
 
-  border: 1px solid #999;
+  border: 0px ;
   background-color: #F2F2F2;
   border-radius: 1rem;
   /* shadow */
@@ -149,6 +149,7 @@ button {
     font-size: 30px;
     width: 350px;
     padding: 25px 8px 30px 8px;
+    margin-top: 30px;
   }
   button {
     font-size: 15px;

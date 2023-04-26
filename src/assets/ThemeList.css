@@ -44,6 +44,65 @@
 }
 
 .tokyonight .display{
+    box-shadow: rgba(5, 5, 5, 0.867) 3px 3px 6px 0px inset, rgba(7, 7, 7, 0.763) -3px -3px 6px 1px inset;
     background-color: #1a1b27;
     color: rgb(56,175,163);
+}
+
+/* merko theme */
+
+
+.merko{
+    background-color: rgb(19, 36, 25);
+    color: #fff;
+}
+
+.merko .calculator{
+    background-color: rgb(13, 84, 54);
+    color: rgba(141,232,17,255);
+}
+
+.merko .btn{
+    background-color: rgba(37,130,92);
+    color: #fff;
+}
+
+.merko .btn.operator{
+    background-color: rgba(142, 232, 17, 0.751);
+    color: #fff;
+}
+
+.merko .display{
+    box-shadow: rgba(5, 5, 5, 0.867) 3px 3px 6px 0px inset, rgba(7, 7, 7, 0.763) -3px -3px 6px 1px inset;
+    background-color: rgb(19, 36, 25);
+    color: rgba(142, 232, 17, 0.751);
+}
+
+/* vue-dark theme */
+
+
+.vue-dark{
+    background-color: #111a27;
+    color: #fff;
+}
+
+.vue-dark .calculator{
+    background-color: #263549;
+    color: rgba(141,232,17,255);
+}
+
+.vue-dark .btn{
+    background-color: #00906e;
+    color: #fff;
+}
+
+.vue-dark .btn.operator{
+    background-color: #00c786;
+    color: #fff;
+}
+
+.vue-dark .display{
+    box-shadow: rgba(5, 5, 5, 0.867) 3px 3px 6px 0px inset, rgba(7, 7, 7, 0.763) -3px -3px 6px 1px inset;
+    background-color: #111a27;
+    color: #fff;
 }
