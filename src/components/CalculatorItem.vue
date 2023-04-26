@@ -1,10 +1,14 @@
 <template>
   <div class="calculator">
     <div class="display">{{current || '0'}}</div>
+    <button @click="memeryAdd" class="btn">M+</button>
+    <button @click="memeryMinus" class="btn">M-</button>
+    <button @click="memeryRead" class="btn">MR</button>
+    <button @click="memeryClear" class="btn">MC</button>
     <button @click="clear" class="btn">C</button>
     <button @click="sign" class="btn">+/-</button>
     <button @click="percent" class="btn">%</button>
-    <button @click="buttonide" class="btn operator">÷</button>
+    <button @click="div" class="btn operator">÷</button>
     <button @click="append('1')" class="btn">1</button>
     <button @click="append('2')" class="btn">2</button>
     <button @click="append('3')" class="btn">3</button>
@@ -24,9 +28,12 @@
 </template>
 
 <script>
+
+import Big from 'big.js';
 export default {
   data() {
     return {
+      memery : localStorage.getItem('memery') || '0',
       previous: null,
       current: '',
       operator: null,
@@ -34,17 +41,18 @@ export default {
     }
   },
   methods: {
+    // normal calculation
     clear() {
       this.current = '';
     },
     sign() {
-      this.current = this.current.charAt(0) === '-' ? 
-        this.current.slice(1) : `-${this.current}`;
+      this.current = this.current.charAt(0) === '-' ? this.current.slice(1) : `-${this.current}`;
     },
     percent() {
       this.current = `${parseFloat(this.current) / 100}`;
     },
     append(number) {
+      if(number === '0' && this.current === '' ) return;
       if (this.operatorClicked) {
         this.current = '';
         this.operatorClicked = false;
@@ -53,36 +61,69 @@ export default {
     },
     dot() {
       if (this.current.indexOf('.') === -1) {
-        this.append('.');
+        if(this.current === '') this.current = '0.';
+        else this.append('.');
       }
     },
     setPrevious() {
       this.previous = this.current;
       this.operatorClicked = true;
     },
-    buttonide() {
-      this.operator = (a, b) => a / b;
+    div() {
+      this.operator = (a, b) => {
+        const BigA = new Big(a);
+        return BigA.div(new Big(b)).toString();
+      };
       this.setPrevious();
     },
     times() {
-      this.operator = (a, b) => a * b;
+      this.operator = (a, b) => {
+        const BigA = new Big(a);
+        return BigA.times(new Big(b)).toString();
+      };
       this.setPrevious();
     },
     minus() {
-      this.operator = (a, b) => a - b;
+      this.operator = (a, b) => {
+        const BigA = new Big(a);
+        return BigA.minus(new Big(b)).toString();
+      };
       this.setPrevious();
     },
     add() {
-      this.operator = (a, b) => a + b;
+      this.operator = (a, b) => { 
+        const BigA = new Big(a);
+        return BigA.plus(new Big(b)).toString();
+      };
       this.setPrevious();
     },
     equal() {
       this.current = `${this.operator(
-        parseFloat(this.current), 
-        parseFloat(this.previous)
+        this.current, 
+        this.previous
       )}`;
       this.previous = null;
-    }
+    },
+    // memery calculation
+    memeryAdd() {
+      this.memery = new Big(this.memery).plus(new Big(this.current || '0')).toString();
+      localStorage.setItem('memery', this.memery);
+    },
+
+    memeryMinus() {
+      this.memery = new Big(this.memery).minus(new Big(this.current || '0' )).toString();
+      localStorage.setItem('memery', this.memery);
+    },
+
+    memeryRead() {
+      this.current = localStorage.getItem('memery') || '';
+    },
+
+    memeryClear() {
+      localStorage.setItem('memery', '0');
+      this.memery = '0';
+      this.current = '';
+    },
   }
 }
 </script>
@@ -114,6 +155,7 @@ export default {
   grid-column: 1 / 5;
   background-color: #333;
   color: white;
+  overflow: scroll;
   /* shadow */
   box-shadow: rgb(124, 124, 124) 3px 3px 6px 0px inset, rgba(188, 188, 188, 0.5) -3px -3px 6px 1px inset;
   /* box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset; */
