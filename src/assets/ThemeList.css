@@ -12,6 +12,9 @@
     background-color: #fff;
     color: #000;
 }
+/* .default .btn:hover{
+    background-color: #ffffff5c;
+} */
 .default .btn.operator{
     background-color: orange;
     color: white;

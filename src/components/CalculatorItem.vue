@@ -35,7 +35,7 @@ export default {
     return {
       memery : localStorage.getItem('memery') || '0',
       previous: null,
-      current: '',
+      current: '0',
       operator: null,
       operatorClicked: false,
     }
@@ -43,7 +43,7 @@ export default {
   methods: {
     // normal calculation
     clear() {
-      this.current = '';
+      this.current = '0';
     },
     sign() {
       this.current = this.current.charAt(0) === '-' ? this.current.slice(1) : `-${this.current}`;
@@ -52,7 +52,7 @@ export default {
       this.current = `${parseFloat(this.current) / 100}`;
     },
     append(number) {
-      if(number === '0' && this.current === '' ) return;
+      if(number === '0' && this.current === '0' ) return;
       if (this.operatorClicked) {
         this.current = '';
         this.operatorClicked = false;
@@ -61,7 +61,7 @@ export default {
     },
     dot() {
       if (this.current.indexOf('.') === -1) {
-        if(this.current === '') this.current = '0.';
+        if(this.current === '0') this.current = '0.';
         else this.append('.');
       }
     },
@@ -116,13 +116,13 @@ export default {
     },
 
     memeryRead() {
-      this.current = localStorage.getItem('memery') || '';
+      this.current = localStorage.getItem('memery') || '0';
     },
 
     memeryClear() {
       localStorage.setItem('memery', '0');
       this.memery = '0';
-      this.current = '';
+      this.current = '0';
     },
   }
 }
