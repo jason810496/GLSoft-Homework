@@ -1,0 +1,49 @@
+
+/* default theme */
+.default{
+    background-color: #eadabf;
+    color: #000;
+}
+.default .calculator{
+    background-color: #ece9e5;
+    color: #000;
+}
+.default .btn{
+    background-color: #fff;
+    color: #000;
+}
+.default .btn.operator{
+    background-color: orange;
+    color: white;
+}
+.default .display{
+    background-color: #fff;
+    color: #000;
+}
+
+/* tokyonight theme */
+
+.tokyonight{
+    background-color: #1a1b27e0;
+    color: #fff;
+}
+
+.tokyonight .calculator{
+    background-color: #1a1b27ac;
+    color: #fff;
+}
+
+.tokyonight .btn{
+    background-color: rgba(191,145,243,255);
+    color: #fff;
+}
+
+.tokyonight .btn.operator{
+    background-color: rgba(112,165,253,255);
+    color: #fff;
+}
+
+.tokyonight .display{
+    background-color: #1a1b27;
+    color: rgb(56,175,163);
+}

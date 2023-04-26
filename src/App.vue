@@ -1,26 +1,48 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" :class="selectedTheme">
+    <ThemeSelector v-model="selectedTheme" @theme-changed="onThemeChanged" />
+    <CalculatorItem />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CalculatorItem from './components/CalculatorItem.vue'
+import ThemeSelector from './components/ThemeSelector.vue';
+import "@/assets/ThemeList.css"
 
 export default {
-  name: 'App',
+  name: 'app',
   components: {
-    HelloWorld
+    ThemeSelector,
+    CalculatorItem,
+  },
+  data(){
+    return {
+      selectedTheme: localStorage.getItem('theme') || 'light'
+    }
+  },
+  methods: {
+    onThemeChanged(newTheme) {
+      this.selectedTheme = newTheme;
+    }
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+body{
+  margin: 0;
 }
 </style>
