@@ -47,8 +47,7 @@ export default {
       this.current = '0';
     },
     sign() {
-      if( this.current === '0' ) return;
-      this.current = this.current.charAt(0) === '-' ? this.current.slice(1) : `-${this.current}`;
+      this.current = new Big(this.current).times(-1).toString();
     },
     percent() {
       this.current = new Big(this.current).div(100).toString();
@@ -132,7 +131,6 @@ export default {
     memeryClear() {
       localStorage.setItem('memery', '0');
       this.memery = '0';
-      this.current = '0';
     },
   }
 }
