@@ -101,10 +101,12 @@ export default {
       this.setPrevious();
     },
     equal() {
+      if( !this.operator ) return;
       this.current = `${this.operator(
         this.previous, 
         this.current
       )}`;
+      this.operator = null;
       this.previous = null;
     },
     del(){
