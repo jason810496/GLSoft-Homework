@@ -176,6 +176,7 @@ button {
   border-radius: 1rem;
   /* shadow */
   box-shadow: rgba(0, 0, 0, 0.24) 0px 5px 8px;
+  transition: 0.5s;
 }
 
 /* .operator {

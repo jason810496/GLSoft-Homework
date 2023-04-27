@@ -12,13 +12,25 @@
     background-color: #fff;
     color: #000;
 }
-/* .default .btn:hover{
-    background-color: #ffffff5c;
-} */
+.default .btn:hover{
+    background-color: #ffffff8a;
+}
+.default .btn:focus{
+    background-color: #ffffff1c;
+}
+
+
 .default .btn.operator{
     background-color: orange;
     color: white;
 }
+.default .btn.operator:hover{
+    background-color: rgb(241, 157, 0);
+}
+.default .btn.operator:focus{
+    background-color: rgb(219, 143, 2);
+}
+
 .default .display{
     background-color: #fff;
     color: #000;
@@ -40,10 +52,23 @@
     background-color: rgba(191,145,243,255);
     color: #fff;
 }
+.tokyonight .btn:hover{
+    background-color: rgb(165, 115, 223);
+}
+.tokyonight .btn:focus{
+    background-color: rgb(146, 85, 215)
+}
+
 
 .tokyonight .btn.operator{
     background-color: rgba(112,165,253,255);
     color: #fff;
+}
+.tokyonight .btn.operator:hover{
+    background-color: rgb(77, 134, 227);
+}
+.tokyonight .btn.operator:focus{
+    background-color: rgb(56, 111, 200);
 }
 
 .tokyonight .display{
@@ -52,34 +77,6 @@
     color: rgb(56,175,163);
 }
 
-/* merko theme */
-
-
-.merko{
-    background-color: rgb(19, 36, 25);
-    color: #fff;
-}
-
-.merko .calculator{
-    background-color: rgb(13, 84, 54);
-    color: rgba(141,232,17,255);
-}
-
-.merko .btn{
-    background-color: rgba(37,130,92);
-    color: #fff;
-}
-
-.merko .btn.operator{
-    background-color: rgba(142, 232, 17, 0.751);
-    color: #fff;
-}
-
-.merko .display{
-    box-shadow: rgba(5, 5, 5, 0.867) 3px 3px 6px 0px inset, rgba(7, 7, 7, 0.763) -3px -3px 6px 1px inset;
-    background-color: rgb(19, 36, 25);
-    color: rgba(142, 232, 17, 0.751);
-}
 
 /* vue-dark theme */
 
@@ -98,14 +95,66 @@
     background-color: #00906e;
     color: #fff;
 }
+.vue-dark .btn:hover{
+    background-color: #027b5f;
+}
+.vue-dark .btn:focus{
+    background-color: #07634e;
+}
 
 .vue-dark .btn.operator{
     background-color: #00c786;
     color: #fff;
+}
+.vue-dark .btn.operator:hover{
+    background-color: #06aa73;
+}
+.vue-dark .btn.operator:focus{
+    background-color: #078a5f;
 }
 
 .vue-dark .display{
     box-shadow: rgba(5, 5, 5, 0.867) 3px 3px 6px 0px inset, rgba(7, 7, 7, 0.763) -3px -3px 6px 1px inset;
     background-color: #111a27;
     color: #fff;
+}
+
+/* merko theme */
+
+.merko{
+    background-color: rgb(19, 36, 25);
+    color: #fff;
+}
+
+.merko .calculator{
+    background-color: rgb(13, 84, 54);
+    color: rgba(141,232,17,255);
+}
+
+.merko .btn{
+    background-color: rgba(37,130,92);
+    color: #fff;
+}
+.merko .btn:hover{
+    background-color: rgb(25, 109, 74);
+}
+.merko .btn:focus{
+    background-color: rgb(30, 92, 66);
+}
+
+.merko .btn.operator{
+    background-color: rgba(142, 232, 17, 0.751);
+    color: #fff;
+}
+.merko .btn.operator:hover{
+    background-color: rgba(124, 203, 15, 0.751);
+}
+.merko .btn.operator:focus{
+    background-color: rgba(95, 158, 8, 0.751);
+}
+
+.merko .display{
+    box-shadow: rgba(5, 5, 5, 0.867) 3px 3px 6px 0px inset, rgba(7, 7, 7, 0.763) -3px -3px 6px 1px inset;
+    background-color: rgb(19, 36, 25);
+    color: rgba(142, 232, 17, 0.751);
 }
