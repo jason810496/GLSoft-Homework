@@ -130,6 +130,7 @@ export default {
 
     memeryClear() {
       localStorage.setItem('memery', '0');
+      this.current = '0';
       this.memery = '0';
     },
   }
