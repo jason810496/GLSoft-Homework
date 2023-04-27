@@ -21,8 +21,9 @@
     <button @click="append('8')" class="btn">8</button>
     <button @click="append('9')" class="btn">9</button>
     <button @click="add" class="btn operator">+</button>
-    <button @click="append('0')" class="btn zero">0</button>
+    <button @click="append('0')" class="btn">0</button>
     <button @click="dot" class="btn">.</button>
+    <button @click="del" class="btn">DEL</button>
     <button @click="equal" class="btn operator">=</button>
   </div>
 </template>
@@ -46,10 +47,11 @@ export default {
       this.current = '0';
     },
     sign() {
+      if( this.current === '0' ) return;
       this.current = this.current.charAt(0) === '-' ? this.current.slice(1) : `-${this.current}`;
     },
     percent() {
-      this.current = `${parseFloat(this.current) / 100}`;
+      this.current = new Big(this.current).div(100).toString();
     },
     append(number) {
       if(number === '0' && this.current === '0' ) return;
@@ -57,6 +59,8 @@ export default {
         this.current = '';
         this.operatorClicked = false;
       }
+
+      if( this.current === '0' ) this.current = '';
       this.current = `${this.current}${number}`;
     },
     dot() {
@@ -99,10 +103,16 @@ export default {
     },
     equal() {
       this.current = `${this.operator(
-        this.current, 
-        this.previous
+        this.previous, 
+        this.current
       )}`;
       this.previous = null;
+    },
+    del(){
+      if( this.current.length === 2 && this.current[0] === '-' ) this.current = '0';
+      else if(this.current.length === 1) this.current = '0';
+      else this.current = this.current.slice(0, -1);
+      this.current = new Big(this.current).toString();
     },
     // memery calculation
     memeryAdd() {
@@ -162,9 +172,9 @@ export default {
   /* box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
 }
 
-.zero {
+/* .zero {
   grid-column: 1 / 3;
-}
+} */
 
 button {
   font-size: 20px;
