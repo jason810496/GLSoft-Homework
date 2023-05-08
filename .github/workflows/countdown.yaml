@@ -5,7 +5,7 @@ on:
     branches:
       - main
       paths:
-        - 'countdown/**'
+        - './countdown/**'
   pull_request:
 
 jobs:
