@@ -28,14 +28,22 @@ export default {
 
 <style>
 
-div#touch-board.show{
+#touch-board.show{
     position: fixed;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     z-index: 999;
 }
 
-div#touch-board.hidden{
+#touch-board.hidden{
+    position: fixed;
+    visibility: hidden;
+    z-index: -999;
+    width: 0;
+    height: 0;
+}
+
+#touch-board{
     position: fixed;
     visibility: hidden;
     z-index: -999;

@@ -1,15 +1,13 @@
 <template>
-  <div id="timer">
     <CountDown />
     <CountDownButton @change-status="onChangeStatus" />
     <StopWatchButton @change-status="onChangeStatus" />
     <DisplayItem />
     <ResetButton />
     <SettingButton @change-status="onChangeStatus" />
-    <SettingPage/>
+    <SettingPage ref="settingPage"/>
     <StartButton @start-child="onStartChild"/>
     <TouchBoard @pause="onPause" />
-  </div>
 </template>
 
 <script>
@@ -24,7 +22,7 @@ import CountDownButton from './components/CountDownButton.vue';
 import StopWatchButton from './components/StopWatchButton.vue';
 
 import { setStatus  } from './components/helper.js';
-import { COUNTDOWN, STOPWATCH } from './components/constant.js';
+import { COUNTDOWN, STOPWATCH ,  SETTING } from './components/constant.js';
 
 
 
@@ -48,6 +46,9 @@ export default {
   },
   methods: {
     onChangeStatus(newStatus) {
+      if( newStatus === SETTING ){
+        this.$refs.settingPage.show();
+      }
       this.status = newStatus;
     },
     onStartChild(){
@@ -72,5 +73,9 @@ export default {
 
 
 <style>
-
+#app{
+  height: 100vh;
+  width: 100vw;
+  background: #000;
+}
 </style>

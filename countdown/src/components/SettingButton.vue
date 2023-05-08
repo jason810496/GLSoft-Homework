@@ -10,7 +10,7 @@ export default {
     name: 'SettingButton',
     methods: {
         changeStatus(){
-            // emit event to parent ( App.vue)
+            console.log('change status');
             this.$emit('change-status','setting');
         }
     },

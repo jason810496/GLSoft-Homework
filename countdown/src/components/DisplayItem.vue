@@ -104,9 +104,14 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
 }
 #display .digit span{
-    font-size: 80vh;
+    font-size: 85vh;
     font-family: digital-7;
+}
+
+#display .digit span{
+    color : #fff;
 }
 </style>
