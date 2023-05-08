@@ -87,6 +87,7 @@ export default {
         },
         saveSetting(){
             saveAll(this.fontFamily, this.color, this.darkroom);
+            this.$emit('load-setting');
             this.hidden();
         }
     }

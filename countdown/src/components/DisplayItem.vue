@@ -1,6 +1,6 @@
 <template>
-    <div id="display" :class="colorTag">
-        <div class="digit">
+    <div id="display" :class="[font,color,colorTag]" v-bind:style="{opacity: `${opacity}%`}">
+        <div class="digit" >
             <span> {{ remainingTime.tenMinute }}</span>
         </div>
         <div class="digit">
@@ -26,6 +26,9 @@ export default {
     data() {
         return {
             timeUp: false,
+            opacity: localStorage.getItem('opacity') || 100,
+            color : localStorage.getItem('color') || 'red',
+            font : localStorage.getItem('font') || 'digital-7',
             colorTag:'even',
             countDownFunction : null,
             stopWatchFunction : null,
@@ -38,6 +41,13 @@ export default {
         };
     },
     methods: {
+        loadSetting(){
+            console.log('display load setting');
+            this.opacity = localStorage.getItem('opacity') || 100;
+            this.color = localStorage.getItem('color') || 'red';
+            this.font = localStorage.getItem('font') || 'digital-7';
+            this.$forceUpdate();
+        },
         startCountDown(){
             let totalTime = localStorage.getItem('countdown') || 0;
             this.countDownFunction = setInterval( async () => {
@@ -111,7 +121,4 @@ export default {
     font-family: digital-7;
 }
 
-#display .digit span{
-    color : #fff;
-}
 </style>

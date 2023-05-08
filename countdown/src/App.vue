@@ -2,10 +2,10 @@
     <CountDown />
     <CountDownButton @change-status="onChangeStatus" />
     <StopWatchButton @change-status="onChangeStatus" />
-    <DisplayItem />
+    <DisplayItem ref="displayItem" />
     <ResetButton />
     <SettingButton @change-status="onChangeStatus" />
-    <SettingPage ref="settingPage"/>
+    <SettingPage ref="settingPage" @load-setting="onLoadSetting"/>
     <StartButton @start-child="onStartChild"/>
     <TouchBoard @pause="onPause" />
 </template>
@@ -66,6 +66,10 @@ export default {
       else if( this.status === STOPWATCH ){
         setStatus(STOPWATCH);
       }
+    },
+    onLoadSetting(){
+      console.log('app load setting');
+      this.$refs.displayItem.loadSetting();
     }
   }
 };
