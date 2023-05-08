@@ -3,11 +3,11 @@
     <CountDownButton @change-status="onChangeStatus" />
     <StopWatchButton @change-status="onChangeStatus" />
     <DisplayItem ref="displayItem" />
-    <ResetButton />
+    <ResetButton @reset-countdown="onResetCountdown" @reset-stopwatch="onResetStopwatch" />
     <SettingButton @change-status="onChangeStatus" />
     <SettingPage ref="settingPage" @load-setting="onLoadSetting"/>
-    <StartButton @start-child="onStartChild"/>
-    <TouchBoard @pause="onPause" />
+    <StartButton ref="startButton" @start-child="onStartChild"/>
+    <TouchBoard ref="touchBoard" @pause="onPause" />
 </template>
 
 <script>
@@ -38,7 +38,11 @@ export default {
     TouchBoard,
     CountDownButton,
     StopWatchButton
-},
+  },
+  created(){
+    console.log('app created');
+    localStorage.setItem('countdown',0);
+  },
   data(){
     return {
       status : localStorage.getItem('status') || 'countdown',
@@ -48,12 +52,19 @@ export default {
     onChangeStatus(newStatus) {
       if( newStatus === SETTING ){
         this.$refs.settingPage.show();
-      }
+      } 
       this.status = newStatus;
     },
+    onResetCountdown(){
+      this.$refs.displayItem.resetCountDown();
+    }
+    ,onResetStopwatch(){
+      this.$refs.displayItem.resetStopWatch();
+    },
     onStartChild(){
+      this.$refs.touchBoard.show();
       if( this.status  === COUNTDOWN ){
-        setStatus(COUNTDOWN);
+        this.$refs.displayItem.startCountDown();
       }
       else if( this.status === STOPWATCH ){
         setStatus(STOPWATCH);
@@ -61,11 +72,12 @@ export default {
     },
     onPause(){
       if( this.status  === COUNTDOWN ){
-        setStatus(COUNTDOWN);
+        this.$refs.displayItem.pauseCountDown();
       }
       else if( this.status === STOPWATCH ){
-        setStatus(STOPWATCH);
+        this.$refs.displayItem.pauseStopWatch();
       }
+      this.$refs.startButton.show();
     },
     onLoadSetting(){
       console.log('app load setting');

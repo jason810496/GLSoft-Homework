@@ -1,5 +1,7 @@
 <template>
-    <button class="start-button" :class="start" @click="start"></button>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" class="start-button" width='100' height='100' fill="#fff" :class="status" @click="start">
+            <path d="M 95,50 5,95 5,5 z"/>
+    </svg>
 </template>
   
 <script>
@@ -13,7 +15,7 @@ export default {
     },
     methods: {
         start(){
-            // emit event to parent ( App.vue)
+            this.hidden();
             this.$emit('start-child');
         },
         show(){
@@ -29,11 +31,6 @@ export default {
 
 <style>
 .start-button{
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 50px 0 50px 100px;
-    border-color: transparent transparent transparent #fff;
     opacity: 0.7;
     z-index: 999;
     /* position */
@@ -41,6 +38,10 @@ export default {
     top:50%;
     left:50%;
     transform: translateX(-50%) translateY(-50%);
+}
+.hidden{
+    visibility: hidden;
+    position: fixed;
 }
 </style>
   

@@ -44,7 +44,7 @@ export default {
             fontFamily : localStorage.getItem('font') || 'digit',
             fontFirst : "selected",
             fontSecond : "none",
-            status : "show" , 
+            status : "hidden" , 
             color : localStorage.getItem('color') || 'red',
             darkroom : localStorage.getItem('darkroom') || false,
             opacity : localStorage.getItem('opacity') || 100

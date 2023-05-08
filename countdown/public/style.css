@@ -49,3 +49,24 @@ body{
 .white{
     color: #fff;
 }
+
+.red.odd{
+    background-color: red;
+    color : #000;
+}
+.green.odd{
+    background-color: rgb(0, 255, 0);
+    color : #000;
+}
+.yellow.odd{
+    background-color: yellow;
+    color : #000;
+}
+.blue.odd{
+    background-color: rgb(0, 255, 255);
+    color : #000;
+}
+.white.odd{
+    background-color: #fff;
+    color : #000;
+}

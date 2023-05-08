@@ -30,6 +30,8 @@ export default {
 
 #touch-board.show{
     position: fixed;
+    top : 0;
+    right: 0;
     width: 100vw;
     height: 100vh;
     z-index: 999;
@@ -43,12 +45,5 @@ export default {
     height: 0;
 }
 
-#touch-board{
-    position: fixed;
-    visibility: hidden;
-    z-index: -999;
-    width: 0;
-    height: 0;
-}
 </style>
   

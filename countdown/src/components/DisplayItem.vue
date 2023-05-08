@@ -49,7 +49,9 @@ export default {
             this.$forceUpdate();
         },
         startCountDown(){
-            let totalTime = localStorage.getItem('countdown') || 0;
+            let totalTime = Math.abs( localStorage.getItem('countdown') ) || 0;
+            this.timeUp = false;
+
             this.countDownFunction = setInterval( async () => {
 
                 if( this.timeUp ){
@@ -75,12 +77,19 @@ export default {
                     }
                 }
                 
-                this.remainingTime.tenMinute = Math.floor(totalTime / 600);
-                this.remainingTime.minute = Math.floor(totalTime / 60) % 10;
-                this.remainingTime.tenSecond = Math.floor(totalTime % 60 / 10);
-                this.remainingTime.second = Math.floor(totalTime % 60 % 10);
+                this.remainingTime.tenMinute =  Math.floor( Math.abs(totalTime) / 600) ;
+                this.remainingTime.minute =  Math.floor( Math.abs( Math.abs(totalTime) )/ 60) % 10 ;
+                this.remainingTime.tenSecond =  Math.floor( Math.abs(totalTime) % 60 / 10);
+                this.remainingTime.second = Math.floor( Math.abs(totalTime) % 60 % 10);
 
             }, 1000);
+        },
+        resetCountDown(){
+            this.remainingTime.tenMinute = 0;
+            this.remainingTime.minute = 0;
+            this.remainingTime.tenSecond = 0;
+            this.remainingTime.second = 0;
+            this.timeUp = false;
         },
         pauseCountDown(){
             clearInterval(this.countDownFunction);
@@ -99,6 +108,12 @@ export default {
                 this.remainingTime.second = Math.floor(totalTime % 60 % 10);
 
             }, 1000);
+        },
+        resetStopWatch(){
+            this.remainingTime.tenMinute = 0;
+            this.remainingTime.minute = 0;
+            this.remainingTime.tenSecond = 0;
+            this.remainingTime.second = 0;
         },
         pauseStopWatch(){
             clearInterval(this.stopWatchFunction);
