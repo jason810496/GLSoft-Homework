@@ -39,7 +39,7 @@ export default {
     StopWatchButton,
   },
   created(){
-    console.log('app created');
+    // console.log('app created');
   },
   data(){
     return {
@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     onShowCountdown(){
-      console.log('apps onShowCountdown');
+      // console.log('apps onShowCountdown');
       this.status = COUNTDOWN;
       this.$refs.countDownPage.updateTime();
       this.$refs.countDownPage.$forceUpdate();
@@ -56,7 +56,7 @@ export default {
       this.$refs.displayItem.hidden();
     },
     onShowStopwatch(){
-      console.log('apps onShowStopwatch');
+      // console.log('apps onShowStopwatch');
       this.status = STOPWATCH;
       this.$refs.displayItem.updateStopwatch();
       this.$refs.displayItem.$forceUpdate();
@@ -75,7 +75,7 @@ export default {
       this.$refs.displayItem.resetStopWatch();
     },
     onStartChild(){
-      console.log('apps onStartChild');
+      // console.log('apps onStartChild');
 
       this.$refs.countDownButton.hidden();
       this.$refs.countDownPage.hidden();
@@ -117,7 +117,7 @@ export default {
       this.$refs.startButton.show();
     },
     onLoadSetting(){
-      console.log('app load setting');
+      // console.log('app load setting');
       this.$refs.displayItem.loadSetting();
       this.$refs.countDownPage.loadSetting();
     }

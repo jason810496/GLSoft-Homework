@@ -64,7 +64,7 @@ export default {
     },
     methods: {
         loadSetting(){
-            console.log('countdown load setting');
+            // console.log('countdown load setting');
             this.opacity = localStorage.getItem('opacity') || 100;
             this.color = localStorage.getItem('color') || 'red';
             this.font = localStorage.getItem('font') || 'digital-7';
@@ -113,7 +113,7 @@ export default {
             this.setTime();
         },
         show(){
-            console.log('condownpage show')
+            // console.log('condownpage show')
             this.status = "show";
         },
         hidden(){

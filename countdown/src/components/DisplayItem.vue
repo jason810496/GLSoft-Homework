@@ -51,7 +51,7 @@ export default {
             this.UIstatus = 'hidden';
         },
         loadSetting(){
-            console.log('display load setting');
+            // console.log('display load setting');
             this.opacity = localStorage.getItem('opacity') || 100;
             this.color = localStorage.getItem('color') || 'red';
             this.font = localStorage.getItem('font') || 'digital-7';
@@ -87,7 +87,7 @@ export default {
                 }
                 // localStorage.setItem('countdown', totalTime);
                 setCountDown(totalTime);
-                console.log('totalTime', totalTime);
+                // console.log('totalTime', totalTime);
 
                 // update UI 
                 if( this.timeUp ){
