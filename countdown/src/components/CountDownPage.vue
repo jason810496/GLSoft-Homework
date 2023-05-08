@@ -19,7 +19,7 @@
             </svg>
         </div>
         <div class="digit">
-            <span style="top: 50%; transform: translateY(25%);"> : </span>
+            <span> : </span>
         </div>
         <div class="digit">
             <svg class="add" @click="add10s" xmlns="http://www.w3.org/2000/svg" version="1.1" width='100' height='100' fill="#fff">
@@ -63,6 +63,13 @@ export default {
         };
     },
     methods: {
+        loadSetting(){
+            console.log('countdown load setting');
+            this.opacity = localStorage.getItem('opacity') || 100;
+            this.color = localStorage.getItem('color') || 'red';
+            this.font = localStorage.getItem('font') || 'digital-7';
+            this.$forceUpdate();
+        },
         updateTime(){
             this.remainingTime.tenMinute = Math.floor( Math.abs(localStorage.getItem('countdown') || 0) / 600) ;
             this.remainingTime.minute =  Math.floor( Math.abs( Math.abs(localStorage.getItem('countdown') || 0) )/ 60) % 10  ;
@@ -146,5 +153,21 @@ export default {
 .sub{
     margin-top: -70px;
 }
+#countdown.digital-7 :nth-child(3) span{
+    top: 50%; transform: translateY(25%);
+}
 
+#countdown.normal .digit span{
+    font-family: 'Secular One', sans-serif;
+    font-size: 60vh;
+}
+#countdown.normal .digit {
+    margin: auto;
+}
+.normal .add{
+    margin-bottom: -90px;
+}
+.normal .sub{
+    margin-top: -160px;
+}
 </style>

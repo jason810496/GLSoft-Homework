@@ -8,6 +8,11 @@ body{
     src: url(digital-7.ttf);
 }
 
+@font-face {
+    font-family: normal-style;
+    src: url(junegull.ttf);
+}
+
 .digital-7{
     font-family: digital-7;
 }

@@ -156,7 +156,10 @@ export default {
 }
 #display .digit span{
     font-size: 85vh;
-    font-family: digital-7;
 }
 
+#display.normal .digit span{
+    font-family: 'Secular One', sans-serif;
+    font-size: 60vh;
+}
 </style>

@@ -119,6 +119,7 @@ export default {
     onLoadSetting(){
       console.log('app load setting');
       this.$refs.displayItem.loadSetting();
+      this.$refs.countDownPage.loadSetting();
     }
   }
 };

@@ -1,7 +1,7 @@
 <template>
     <div id="setting-page" :class="status">
         <div class="choose font">
-            <div class="just-center digital-7" :class="[fontFirst,color]" @click="selectFont('digit')" v-bind:style="{opacity: `${opacity}%`}">
+            <div class="just-center digital-7" :class="[fontFirst,color]" @click="selectFont('digital-7')" v-bind:style="{opacity: `${opacity}%`}">
                 23 : 45
             </div>
             <div class="just-center normal" :class="[fontSecond,color]" @click="selectFont('normal')" style="line-height: 0.9;" v-bind:style="{opacity: `${opacity}%`}">
@@ -41,7 +41,7 @@ export default {
     name: 'SettingPage',
     data() {
         return {
-            fontFamily : localStorage.getItem('font') || 'digit',
+            fontFamily : localStorage.getItem('font') || 'digital-7',
             fontFirst : "selected",
             fontSecond : "none",
             status : "hidden" , 
@@ -52,14 +52,16 @@ export default {
     },
     methods:{
         selectFont(f){
-            if( f == 'digit' ){
+            if( f === 'digital-7' ){
                 this.fontFirst = "selected";
                 this.fontSecond = "none";
-                setFont('digit');
+                this.fontFamily = "digital-7";
+                setFont('digital-7');
             }
-            else if( f == 'normal' ){
+            else if( f === 'normal' ){
                 this.fontFirst = "none";
                 this.fontSecond = "selected";
+                this.fontFamily = "normal";
                 setFont('normal');
             }
         },
@@ -154,10 +156,9 @@ input[type="range"] {
   height: 30px;
   width: 220px;
   overflow: hidden;
-  cursor: pointer;              /* 滑鼠放上會改變鼠標樣式 */
-  outline: none;                /* 取消底線效果 */
-  background-color: white;      /* 為了解釋方便所設定 */
-  /* background-color: grey; */ /* 我的目標樣式 */
+  cursor: pointer;              
+  outline: none;                
+  background-color: white;     
   margin: 0 10px 0;
 }
 
@@ -172,19 +173,16 @@ input[type="range"]::-webkit-slider-thumb{
   position: relative;
   height: 16px;
   width: 16px;
-  margin-top: -5px;              /* 會受到寬高影響定位，需微調 */
-  background-color: tomato;      /* 為了解釋方便所設定 */
-  /* background-color: white; */ /* 我的目標樣式 */
-  border-radius: 50%;
-  border: 1px solid black;
+  margin-top: -5px;              
+  background-color: tomato;      
+  
 }
 input[type=”range”]::-moz-range-thumb{
   position: relative;
   height: 16px;
   width: 16px;
-  margin-top: -5px;              /* 會受到寬高影響定位，需微調 */
-  background-color: tomato;      /* 為了解釋方便所設定 */
-  /* background-color: white; */ /* 我的目標樣式 */
+  margin-top: -5px;               
+  background-color: tomato;      
   border-radius: 50%;
   border: 1px solid black;
 }
@@ -193,9 +191,8 @@ input[type=”range”]::-ms-thumb{
   position: relative;
   height: 16px;
   width: 16px;
-  margin-top: -5px;              /* 會受到寬高影響定位，需微調 */
-  background-color: tomato;      /* 為了解釋方便所設定 */
-  /* background-color: white; */ /* 我的目標樣式 */
+  margin-top: -5px;             
+  background-color: tomato;      
   border-radius: 50%;
   border: 1px solid black;
 }
