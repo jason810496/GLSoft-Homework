@@ -24,8 +24,9 @@ export default {
             this.status = "hidden";
         },
         updateStatus(){
+            console.log('CountDownButton updateStatus');
             setStatus(COUNTDOWN);
-            this.$emit('change-status',COUNTDOWN);
+            this.$emit('show-countdown');
         }
     },
 };

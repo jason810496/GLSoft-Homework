@@ -25,6 +25,7 @@ export default {
         },
         updateStatus(){
             setStatus(STOPWATCH);
+            this.$emit('show-stopwatch');
             this.$emit('change-status',STOPWATCH);
         }
     },

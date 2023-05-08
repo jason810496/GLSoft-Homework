@@ -19,11 +19,12 @@ export default {
     },
     methods: {
         async reset(){
-            if( this.status == COUNTDOWN ){
+            this.status = localStorage.getItem('status') || 'countdown';
+            if( this.status === COUNTDOWN ){
                 this.$emit('reset-countdown');
                 resetCountDown();
             }
-            else if( this.status == STOPWATCH ){
+            else if( this.status === STOPWATCH ){
                 this.$emit('reset-stopwatch');
                 resetStopWatch();
             }

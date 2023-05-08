@@ -1,7 +1,7 @@
 <template>
-    <CountDown />
-    <CountDownButton ref="countDownButton" @change-status="onChangeStatus" />
-    <StopWatchButton ref="stopWatchButton" @change-status="onChangeStatus" />
+    <CountDownPage ref="countDownPage" />
+    <CountDownButton ref="countDownButton" @change-status="onChangeStatus" @show-countdown="onShowCountdown"/>
+    <StopWatchButton ref="stopWatchButton" @change-status="onChangeStatus" @show-stopwatch="onShowStopwatch"/>
     <DisplayItem ref="displayItem" />
     <ResetButton ref="resetButton" @reset-countdown="onResetCountdown" @reset-stopwatch="onResetStopwatch" />
     <SettingButton ref="settingButton" @change-status="onChangeStatus" />
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import CountDown from './components/CountDown.vue';
+import CountDownPage from './components/CountDownPage.vue';
 import DisplayItem from './components/DisplayItem.vue';
 import ResetButton from './components/ResetButton.vue';
 import SettingButton from './components/SettingButton.vue';
@@ -28,7 +28,7 @@ import { COUNTDOWN, STOPWATCH ,  SETTING } from './components/constant.js';
 export default {
   name: 'App',
     components: {
-    CountDown,
+    CountDownPage,
     DisplayItem,
     ResetButton,
     SettingButton,
@@ -40,7 +40,6 @@ export default {
   },
   created(){
     console.log('app created');
-    localStorage.setItem('countdown',0);
   },
   data(){
     return {
@@ -48,6 +47,20 @@ export default {
     };
   },
   methods: {
+    onShowCountdown(){
+      console.log('apps onShowCountdown');
+      this.status = COUNTDOWN;
+      this.$refs.countDownPage.updateTime();
+      this.$refs.countDownPage.$forceUpdate();
+      this.$refs.countDownPage.show();
+      this.$refs.displayItem.hidden();
+    },
+    onShowStopwatch(){
+      console.log('apps onShowStopwatch');
+      this.status = STOPWATCH;
+      this.$refs.displayItem.updateStopwatch();
+      this.$refs.displayItem.$forceUpdate();
+    },
     onChangeStatus(newStatus) {
       if( newStatus === SETTING ){
         this.$refs.settingPage.show();
@@ -63,20 +76,28 @@ export default {
     },
     onStartChild(){
       console.log('apps onStartChild');
-      this.$refs.touchBoard.show();
 
       this.$refs.countDownButton.hidden();
+      this.$refs.countDownPage.hidden();
       this.$refs.stopWatchButton.hidden();
       this.$refs.resetButton.hidden();
       this.$refs.settingButton.hidden();
 
 
       if( this.status  === COUNTDOWN ){
+        this.$refs.displayItem.updateCountdown();
+        this.$refs.displayItem.$forceUpdate();
         this.$refs.displayItem.startCountDown();
       }
       else if( this.status === STOPWATCH ){
+        this.$refs.displayItem.updateStopwatch();
+        this.$refs.displayItem.$forceUpdate();
         this.$refs.displayItem.startStopWatch();
       }
+
+      
+      this.$refs.displayItem.show();
+      this.$refs.touchBoard.show();
     },
     onPause(){
       this.$refs.countDownButton.show();
@@ -98,7 +119,7 @@ export default {
     onLoadSetting(){
       console.log('app load setting');
       this.$refs.displayItem.loadSetting();
-    },
+    }
   }
 };
 </script>

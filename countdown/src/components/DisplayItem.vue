@@ -1,5 +1,5 @@
 <template>
-    <div id="display" :class="[font,color,colorTag]" v-bind:style="{opacity: `${opacity}%`}">
+    <div id="display" :class="[font,color,colorTag,UIstatus]" v-bind:style="{opacity: `${opacity}%`}">
         <div class="digit" >
             <span> {{ remainingTime.tenMinute }}</span>
         </div>
@@ -25,6 +25,7 @@ export default {
     name: 'CountDown',
     data() {
         return {
+            UIstatus: 'show', // hidden
             timeUp: false,
             opacity: localStorage.getItem('opacity') || 100,
             color : localStorage.getItem('color') || 'red',
@@ -43,12 +44,30 @@ export default {
         };
     },
     methods: {
+        show(){
+            this.UIstatus = 'show';
+        },
+        hidden(){
+            this.UIstatus = 'hidden';
+        },
         loadSetting(){
             console.log('display load setting');
             this.opacity = localStorage.getItem('opacity') || 100;
             this.color = localStorage.getItem('color') || 'red';
             this.font = localStorage.getItem('font') || 'digital-7';
             this.$forceUpdate();
+        },
+        updateCountdown(){
+            this.remainingTime.tenMinute = Math.floor( Math.abs(localStorage.getItem('countdown') || 0) / 600) ;
+            this.remainingTime.minute =  Math.floor( Math.abs( Math.abs(localStorage.getItem('countdown') || 0) )/ 60) % 10  ;
+            this.remainingTime.tenSecond =  Math.floor( Math.abs(localStorage.getItem('countdown') || 0) % 60 / 10) ;
+            this.remainingTime.second = Math.floor( Math.abs(localStorage.getItem('countdown') || 0) % 60 % 10) ;
+        },
+        updateStopwatch(){
+            this.remainingTime.tenMinute = Math.floor( Math.abs(localStorage.getItem('stopwatch') || 0) / 600) ;
+            this.remainingTime.minute =  Math.floor( Math.abs( Math.abs(localStorage.getItem('stopwatch') || 0) )/ 60) % 10  ;
+            this.remainingTime.tenSecond =  Math.floor( Math.abs(localStorage.getItem('stopwatch') || 0) % 60 / 10) ;
+            this.remainingTime.second = Math.floor( Math.abs(localStorage.getItem('stopwatch') || 0) % 60 % 10) ;
         },
         startCountDown(){
             let totalTime = Math.abs( localStorage.getItem('countdown') ) || 0;
