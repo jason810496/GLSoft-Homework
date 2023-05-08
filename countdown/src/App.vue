@@ -1,40 +1,76 @@
 <template>
-  <div>
+  <div id="timer">
     <CountDown />
-    <TimerItem />
-    <SetTime />
-    <RestartItem />
-    <SettingItem />
+    <CountDownButton @change-status="onChangeStatus" />
+    <StopWatchButton @change-status="onChangeStatus" />
+    <DisplayItem />
+    <ResetButton />
+    <SettingButton @change-status="onChangeStatus" />
+    <SettingPage/>
+    <StartButton @start-child="onStartChild"/>
+    <TouchBoard @pause="onPause" />
   </div>
 </template>
 
 <script>
 import CountDown from './components/CountDown.vue';
-import TimerItem from './components/TimerItem.vue';
-import SetTime from './components/SetTime.vue';
-import RestartItem from './components/RestartItem.vue';
-import SettingItem from './components/SettingItem.vue';
+import DisplayItem from './components/DisplayItem.vue';
+import ResetButton from './components/ResetButton.vue';
+import SettingButton from './components/SettingButton.vue';
+import SettingPage from './components/SettingPage.vue';
+import StartButton from './components/StartButton.vue';
+import TouchBoard from './components/TouchBoard.vue';
+import CountDownButton from './components/CountDownButton.vue';
+import StopWatchButton from './components/StopWatchButton.vue';
+
+import { setStatus  } from './components/helper.js';
+import { COUNTDOWN, STOPWATCH } from './components/constant.js';
+
 
 
 export default {
   name: 'App',
-  components: {
+    components: {
     CountDown,
-    TimerItem,
-    SetTime,
-    RestartItem,
-    SettingItem
+    DisplayItem,
+    ResetButton,
+    SettingButton,
+    SettingPage,
+    StartButton,
+    TouchBoard,
+    CountDownButton,
+    StopWatchButton
+},
+  data(){
+    return {
+      status : localStorage.getItem('status') || 'countdown',
+    };
+  },
+  methods: {
+    onChangeStatus(newStatus) {
+      this.status = newStatus;
+    },
+    onStartChild(){
+      if( this.status  === COUNTDOWN ){
+        setStatus(COUNTDOWN);
+      }
+      else if( this.status === STOPWATCH ){
+        setStatus(STOPWATCH);
+      }
+    },
+    onPause(){
+      if( this.status  === COUNTDOWN ){
+        setStatus(COUNTDOWN);
+      }
+      else if( this.status === STOPWATCH ){
+        setStatus(STOPWATCH);
+      }
+    }
   }
 };
 </script>
 
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+
 </style>

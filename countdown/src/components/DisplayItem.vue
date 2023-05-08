@@ -1,33 +1,25 @@
 <template>
-    <div id="countdown" :class="colorTag">
+    <div id="display" :class="colorTag">
         <div class="digit">
-            <button class="add" @click="add10m"></button>
             <span> {{ remainingTime.tenMinute }}</span>
-            <button class="sub" @click="sub10m"></button>
         </div>
         <div class="digit">
-            <button class="add" @click="addm"></button>
             <span> {{ remainingTime.minute }}</span>
-            <button class="sub" @click="subm"></button>
         </div>
         <div class="digit">
             <span> : </span>
         </div>
         <div class="digit">
-            <button class="add" @click="add10s"></button>
             <span> {{ remainingTime.tenSecond }}</span>
-            <button class="sub" @click="sub10s"></button>
         </div>
         <div class="digit">
-            <button class="add" @click="adds"></button>
             <span> {{ remainingTime.second }}</span>
-            <button class="sub" @click="sub10s"></button>
         </div>
     </div>
 </template>
   
 <script>
-import { setCountDown , addTime , subTime } from './helper.js';
+import { setCountDown ,setStopWatch  } from './helper.js';
 
 export default {
     name: 'CountDown',
@@ -36,6 +28,7 @@ export default {
             timeUp: false,
             colorTag:'even',
             countDownFunction : null,
+            stopWatchFunction : null,
             remainingTime: {
                 tenMinute: 0,
                 minute: 0,
@@ -45,7 +38,7 @@ export default {
         };
     },
     methods: {
-        start(){
+        startCountDown(){
             let totalTime = localStorage.getItem('countdown') || 0;
             this.countDownFunction = setInterval( async () => {
 
@@ -79,32 +72,26 @@ export default {
 
             }, 1000);
         },
-        pause(){
+        pauseCountDown(){
             clearInterval(this.countDownFunction);
         },
-        add10m(){
-            this.remainingTime.tenMinute = addTime(this.remainingTime.tenMinute);
+        startStopWatch(){
+            let totalTime = localStorage.getItem('stopwatch') || 0;
+            this.stopWatchFunction = setInterval( async () => {
+
+                totalTime++;
+                // localStorage.setItem('countdown', totalTime);
+                setStopWatch(totalTime);
+                
+                this.remainingTime.tenMinute = Math.floor(totalTime / 600);
+                this.remainingTime.minute = Math.floor(totalTime / 60) % 10;
+                this.remainingTime.tenSecond = Math.floor(totalTime % 60 / 10);
+                this.remainingTime.second = Math.floor(totalTime % 60 % 10);
+
+            }, 1000);
         },
-        sub10m(){
-            this.remainingTime.tenMinute = subTime(this.remainingTime.tenMinute);
-        },
-        addm(){
-            this.remainingTime.minute = addTime(this.remainingTime.minute);
-        },
-        subm(){
-            this.remainingTime.minute = subTime(this.remainingTime.minute);
-        },
-        add10s(){
-            this.remainingTime.tenSecond = addTime(this.remainingTime.tenSecond);
-        },
-        sub10s(){
-            this.remainingTime.tenSecond = subTime(this.remainingTime.tenSecond);
-        },
-        adds(){
-            this.remainingTime.second = addTime(this.remainingTime.second);
-        },
-        subs(){
-            this.remainingTime.second = subTime(this.remainingTime.second);
+        pauseStopWatch(){
+            clearInterval(this.stopWatchFunction);
         },
 
     },
@@ -113,22 +100,13 @@ export default {
   
 
 <style>
-#countdown{
+#display{
     display: flex;
-}
-#countdown button{
-    display: block;
-}
-#countdown span{
-    display: block;
-}
-.digit{
     justify-content: center;
+    align-items: center;
 }
-
-#countdown{
-    position: fixed;
-    visibility: hidden;
+#display .digit span{
+    font-size: 80vh;
+    font-family: digital-7;
 }
-
 </style>
