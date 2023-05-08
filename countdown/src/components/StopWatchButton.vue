@@ -1,21 +1,32 @@
 <template>
-    <button id="stopwatch-button" @click="reset">
+    <button id="stopwatch-button" @click="updateStatus" :class="UIstatus">
         <i class="fa-solid fa-stopwatch"></i>
     </button>
 </template>
   
 <script>
 
+import { setStatus  } from './helper.js';
+import {  STOPWATCH } from './constant.js';
 
 export default {
     name: 'StopWatchButton',
     data() {
         return {
-            status : localStorage.getItem('status') || 'countdown',
+            UIstatus : 'show', // hidden
         };
     },
     methods: {
-        
+        show(){
+            this.UIstatus = "show";
+        },
+        hidden(){
+            this.UIstatus = "hidden";
+        },
+        updateStatus(){
+            setStatus(STOPWATCH);
+            this.$emit('change-status',STOPWATCH);
+        }
     },
 };
 </script>
@@ -32,6 +43,7 @@ export default {
     outline: none;
     cursor: pointer;
     background-color: #000;
+    z-index: 999;
 }
 #stopwatch-button i{
     color: #fff;

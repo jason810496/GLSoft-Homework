@@ -1,5 +1,5 @@
 <template>
-    <button id="setting-button" @click="changeStatus">
+    <button id="setting-button" @click="changeStatus" :class="status">
         <i class="fa-solid fa-gear"></i>
     </button>
 </template>
@@ -8,10 +8,20 @@
 
 export default {
     name: 'SettingButton',
+    data() {
+        return {
+            status : 'show', // hidden
+        };
+    },
     methods: {
         changeStatus(){
-            console.log('change status');
             this.$emit('change-status','setting');
+        },
+        show(){
+            this.status = "show";
+        },
+        hidden(){
+            this.status = "hidden";
         }
     },
 };

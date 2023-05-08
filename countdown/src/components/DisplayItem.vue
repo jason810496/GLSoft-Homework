@@ -32,6 +32,8 @@ export default {
             colorTag:'even',
             countDownFunction : null,
             stopWatchFunction : null,
+            countdown : localStorage.getItem('countdown') || 0,
+            stopwatch : localStorage.getItem('stopwatch') || 0,
             remainingTime: {
                 tenMinute: 0,
                 minute: 0,
@@ -66,6 +68,7 @@ export default {
                 }
                 // localStorage.setItem('countdown', totalTime);
                 setCountDown(totalTime);
+                console.log('totalTime', totalTime);
 
                 // update UI 
                 if( this.timeUp ){
@@ -96,6 +99,7 @@ export default {
         },
         startStopWatch(){
             let totalTime = localStorage.getItem('stopwatch') || 0;
+            
             this.stopWatchFunction = setInterval( async () => {
 
                 totalTime++;

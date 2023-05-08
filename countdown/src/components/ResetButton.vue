@@ -1,5 +1,5 @@
 <template>
-    <button id="reset-button" @click="reset">
+    <button id="reset-button" @click="reset" :class="UIstatus">
         <i class="fa-solid fa-rotate-left"></i>
     </button>
 </template>
@@ -13,6 +13,7 @@ export default {
     name: 'ResetButton',
     data() {
         return {
+            UIstatus : 'show', // hidden
             status : localStorage.getItem('status') || 'countdown',
         };
     },
@@ -26,6 +27,12 @@ export default {
                 this.$emit('reset-stopwatch');
                 resetStopWatch();
             }
+        },
+        show(){
+            this.UIstatus = "show";
+        },
+        hidden(){
+            this.UIstatus = "hidden";
         }
     },
 };

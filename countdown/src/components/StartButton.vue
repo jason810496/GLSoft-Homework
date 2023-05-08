@@ -15,6 +15,7 @@ export default {
     },
     methods: {
         start(){
+            console.log('start button clicked');
             this.hidden();
             this.$emit('start-child');
         },

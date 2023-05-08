@@ -16,7 +16,10 @@ body{
     font-family: 'Secular One', sans-serif; 
 }
 
-
+.hidden{
+    visibility: hidden;
+    position: fixed;
+}
 
 .bg-red{
     background-color: red;
