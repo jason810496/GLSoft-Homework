@@ -66,12 +66,12 @@ export default {
             }
         },
         selectColor(c){
-            console.log('select color' , c );
+            // console.log('select color' , c );
             this.color = c;
             setColor(c);
         },
         onOpacityChanged(){
-            console.log('opacity changed' , this.opacity);
+            // console.log('opacity changed' , this.opacity);
             localStorage.setItem('opacity',this.opacity);
         },
         onDarkroomChanged(){
