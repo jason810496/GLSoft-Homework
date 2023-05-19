@@ -19,7 +19,11 @@
 ### tech stack 
 - FastAPI
 - docker
+    - docker-compose
 - PostgreSQL
+
+### FastAPI + SqlAlchemy structure
+- [ : csdn ](https://blog.csdn.net/ashtyukjhf/article/details/121885667)
 
 ### package 
 pip list : 

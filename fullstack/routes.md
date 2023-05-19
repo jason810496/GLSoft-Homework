@@ -1,6 +1,5 @@
-# Routes
+# Backend Routes
 
-- / 
 - /login
 - /logout
 - /user
@@ -16,3 +15,6 @@
     - /user/{id}
         - DELTE
 - 
+
+# Frontend Routes
+- /

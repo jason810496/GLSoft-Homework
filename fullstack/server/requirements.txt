@@ -1,0 +1,4 @@
+fastapi
+sqlalchemy # for database
+python-jose # for jwt
+passlib # for password hashing
