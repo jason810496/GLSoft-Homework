@@ -1,10 +1,9 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
+from models.database import engine, database , metadata , Base
+from api import user
 
-from app.api import notes, ping
-from app.db import engine, metadata, database
-
-metadata.create_all(engine)
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
@@ -33,5 +32,4 @@ async def shutdown():
     await database.disconnect()
 
 
-app.include_router(ping.router)
-app.include_router(notes.router, prefix="/notes", tags=["notes"])
+app.include_router(user.router)
