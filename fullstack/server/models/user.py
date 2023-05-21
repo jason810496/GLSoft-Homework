@@ -1,16 +1,17 @@
-from sqlalchemy import func
-from app import db
+from .database import Base 
+from sqlalchemy import Column , VARCHAR , DATE , DateTime
+from datetime import datetime
 
-class Announcement(db.Model):
-    __tablename__ = "announcement"
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50), nullable=False)
-    content = db.Column(db.String(500), nullable=False)
-    date = db.Column(db.DateTime(timezone=True),server_default=func.now())
+# Create User class
+class User(Base):
+    __tablename__ = 'users'
+    username = Column(VARCHAR, unique=True , primary_key=True)
+    password = Column(VARCHAR)
+    birthday = Column(DATE)
+    create_time = Column(DateTime , default=datetime.utcnow() )
+    last_login = Column(DateTime , nullable=True )
 
-    def __init__(self,title,content):
-        self.title = title
-        self.content = content
-
-    def __repr__(self) -> str:
-        return f"Announcement(id={self.id!r}, title={self.title!r}, content={self.content!r})"
+    def __init__(self, username, password, birthday):
+        self.username = username
+        self.password = password
+        self.birthday = birthday
