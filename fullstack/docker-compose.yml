@@ -3,15 +3,15 @@ version: '3.8'
 services:
 
   backend:
-    build: ./backend
+    build: ./server
     ports:
       - 5001:5001
     environment:
-      - DATABASE_URL=postgres://hello_fastapi:hello_fastapi@db:5432/hello_fastapi_dev
+      - DATABASE_URL=postgresql://hello_fastapi:hello_fastapi@db:5432/hello_fastapi_dev
       - SECRET_KEY=09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7
     volumes:
-      - ./backend:/app
-    command: uvicorn src.main:app --reload --host 0.0.0.0 --port 5001
+      - ./server/:/usr/server/
+    command: python3 -m uvicorn app:app --reload --host 0.0.0.0 --port 5001
     depends_on:
       - db
 
@@ -36,3 +36,7 @@ services:
 
 volumes:
   postgres_data:
+
+networks:
+  default: 
+    name: hello_fastapi
