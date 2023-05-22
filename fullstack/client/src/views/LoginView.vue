@@ -1,5 +1,4 @@
 <template>
-    <NavBar />
     <div class="mx-5">
         <div class="mx-5 my-5">
             <form>
@@ -11,7 +10,7 @@
                     <label for="passwordField">Password</label>
                     <input v-model="form.password" type="password" class="form-control" id="passwordField">
                 </div>
-                <button type="submit" class="btn btn-primary" v-on:click="submit">Submit</button>
+                <button type="submit" class="btn btn-primary" v-on:click="submit">Login</button>
             </form>
         </div>
     </div>
