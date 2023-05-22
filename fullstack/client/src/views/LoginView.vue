@@ -46,16 +46,17 @@ export default {
             .then((response) => {
                 console.log("after login post");
                 console.log(response);
-                console.log(response.data);
-                console.log(response.data.access_token);
+                // console.log(response.data);
+                // console.log(response.data.access_token);
                 localStorage.setItem('access_token', response.data.access_token);
                 localStorage.setItem('login', 'true' );
                 console.log("localStorage.getItem('access_token')",localStorage.getItem('access_token'));
+                this.$router.push('/profile');
             }).catch((err) => {
                 console.log(err);
             });
             
-            this.$router.push('/profile');
+            
         }
     },
 };

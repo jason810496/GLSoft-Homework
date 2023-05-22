@@ -2,7 +2,6 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import LoginView from '../views/LoginView.vue'
-import { isAuthenticated } from '../modules'
 
 const routes = [
     {
@@ -17,7 +16,7 @@ const routes = [
         component: LoginView,
         meta: { requiresAuth: false },
         beforeEnter: (to, from, next ) => {
-            if( isAuthenticated()) next("/profile");
+            if( localStorage.getItem('login') === 'true' ) next("/profile");
             else next()
         }
     },
@@ -34,15 +33,22 @@ const router = createRouter({
     routes, // short for `routes: routes`
 })
 
-router.beforeEach((to, from) => {
+router.beforeEach((to, _ , next) => {
 // instead of having to check every route record with
 // to.matched.some(record => record.meta.requiresAuth)
-    if (to.meta.requiresAuth && !isAuthenticated() ) {
-        return {
-            path: '/login',
-            query: { redirect: to.fullPath },
+    if (to.meta.requiresAuth ) {
+        if( localStorage.getItem('login') === 'true' ){
+            next();
+            return;
         }
+        next('/login');
+        return;
     }
+    else{
+        next();
+        return;
+    }
+
 })
 
 export default router;
