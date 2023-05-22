@@ -12,7 +12,7 @@ import os
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
 
 def get_password_hash(password):
     return pwd_context.hash(password)
@@ -53,7 +53,7 @@ async def get_current_user(token: Annotated[ str , Depends(oauth2_scheme) ]):
             raise credentials_exception
     except JWTError:
         raise credentials_exception
-    user = get_user_by_username( db = SessionLocal() , username=username)
+    user = get_user_by_username(username=username)
     if user is None:
         raise credentials_exception
     return user
