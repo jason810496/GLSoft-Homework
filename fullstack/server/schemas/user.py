@@ -11,7 +11,7 @@ class UserCreate(UserBase):
     create_time: datetime
     
 
-class User(UserBase):
+class UserData(UserBase):
     last_login: Optional[datetime] = None
 
     class Config:

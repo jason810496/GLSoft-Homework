@@ -1,11 +1,13 @@
 from passlib.context import CryptContext
-from sqlalchemy import Session
-from . import models, schemas
+from models.database import SessionLocal
+from schemas.token import Token
+from crud.user import get_user_by_username
+from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 # for JWT
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
-from typing import Optional
+from typing import Optional , Annotated
 import os
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -18,8 +20,8 @@ def get_password_hash(password):
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
-async def validate_user(db : Session, username: str, password: str):
-    user = await db.query(models.User).filter(models.User.username == username).first()
+async def validate_user(username: str, password: str):
+    user = await get_user_by_username(SessionLocal, username=username)
     if not user:
         return False
     if not verify_password(password, user.password):
@@ -38,7 +40,7 @@ async def create_access_token(data: dict, expires_delta: Optional[timedelta] = N
     return encoded_jwt
 
 
-async def get_current_user(token: str = Depends(oauth2_scheme)):
+async def get_current_user(token: Annotated[ str , Depends(oauth2_scheme) ]):
     credentials_exception = HTTPException(
         status_code=401,
         detail="Could not validate credentials",
@@ -49,10 +51,12 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         username: str = payload.get("usr")
         if username is None:
             raise credentials_exception
-        token_data = schemas.TokenData(username=username)
+        token_data = Token(username=username)
     except JWTError:
         raise credentials_exception
-    user = await get_user_by_username(db, username=token_data.username)
+    user = await get_user_by_username(SessionLocal, username=token_data.username)
     if user is None:
         raise credentials_exception
     return user
+
+

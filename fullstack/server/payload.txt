@@ -1,0 +1,12 @@
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3IiOiJqYXNvbiIsImV4cCI6MTY4NDY5MTkzMX0.WyHEcG64IUxWHZuoDwHQ_vnJCOdv_N64eMacgcnqdDs",
+  "token_type": "bearer"
+}
+
+http://0.0.0.0:5001/user/me
+
+curl -X GET http://0.0.0.0:5001/user/me -H 'Content-Type: application/json' -d '{ "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3IiOiJqYXNvbiIsImV4cCI6MTY4NDY5MTkzMX0.WyHEcG64IUxWHZuoDwHQ_vnJCOdv_N64eMacgcnqdDs", "token_type": "bearer" }' -H 'accept: application/json'
+
+curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" https://{hostname}/api/myresource
+
+curl -H 'Accept: application/json' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3IiOiJqYXNvbiIsImV4cCI6MTY4NDY5MTkzMX0.WyHEcG64IUxWHZuoDwHQ_vnJCOdv_N64eMacgcnqdDs" http://0.0.0.0:5001/user/me
