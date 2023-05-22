@@ -11,7 +11,7 @@ class UserModels(Base):
     create_time = Column(DateTime , default=datetime.utcnow() )
     last_login = Column(DateTime , nullable=True )
 
-    def __init__(self, username, password, birthday):
+    def __init__(self, username : str , password : str , birthday : datetime ):
         self.username = username
         self.password = password
         self.birthday = birthday

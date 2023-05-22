@@ -21,7 +21,7 @@ def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 async def validate_user(username: str, password: str):
-    user = await get_user_by_username(get_db, username=username)
+    user = await get_user_by_username(username=username)
     if not user:
         return False
     if not verify_password(password, user.password):

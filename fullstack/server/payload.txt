@@ -5,8 +5,25 @@
 
 http://0.0.0.0:5001/user/me
 
-curl -X GET http://0.0.0.0:5001/user/me -H 'Content-Type: application/json' -d '{ "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3IiOiJqYXNvbiIsImV4cCI6MTY4NDY5MTkzMX0.WyHEcG64IUxWHZuoDwHQ_vnJCOdv_N64eMacgcnqdDs", "token_type": "bearer" }' -H 'accept: application/json'
+curl -X GET http://0.0.0.0:5001/user/me -H 'Content-Type: application/json' -d '{ "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3IiOiJKYXNvbjMiLCJleHAiOjE2ODQ3Mzg0Mzd9.KwDJmx_z_GgJ8gf-KQL8iiFAYAORRPDYz1mGeYGl4tI", "token_type": "bearer"  , "username" : "Jason3"}' -H 'accept: application/json'
 
 curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" https://{hostname}/api/myresource
 
-curl -H 'Accept: application/json' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3IiOiJqYXNvbiIsImV4cCI6MTY4NDY5MTkzMX0.WyHEcG64IUxWHZuoDwHQ_vnJCOdv_N64eMacgcnqdDs" http://0.0.0.0:5001/user/me
+# get current auth user 
+curl -X GET -H 'Accept: application/json' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5vdyIsImV4cCI6MTY4NDc0NzU2M30.SRWWg_LIcxU1LtrbLJNsOelIIoyZFsZlAfTrSIQorQw" http://0.0.0.0:5001/whoami
+
+# get public user data
+curl -X GET -H 'Accept: application/json' http://0.0.0.0:5001/user/Jason
+
+# update password
+curl -X PUT -H 'Content-Type: application/json' -d '{"password":"new_password"}' -H 'Accept: application/json' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5vdyIsImV4cCI6MTY4NDc0NzU2M30.SRWWg_LIcxU1LtrbLJNsOelIIoyZFsZlAfTrSIQorQw" http://0.0.0.0:5001/user/password
+
+# update birthday
+curl -X PUT -H 'Content-Type: application/json' -d '{"birthday":"2000-01-01"}' -H 'Accept: application/json' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5vdyIsImV4cCI6MTY4NDc0NzU2M30.SRWWg_LIcxU1LtrbLJNsOelIIoyZFsZlAfTrSIQorQw" http://0.0.0.0:5001/user/birthday
+
+
+# delete user 
+curl -X DELETE -H 'Accept: application/json' -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5vdyIsImV4cCI6MTY4NDc0NzU2M30.SRWWg_LIcxU1LtrbLJNsOelIIoyZFsZlAfTrSIQorQw" http://0.0.0.0:5001/user
+
+
+-H 'Content-Type: application/json' -d '{"login":"my_login","password":"my_password"}'
