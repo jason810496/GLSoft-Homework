@@ -1,5 +1,5 @@
 from passlib.context import CryptContext
-from models.database import SessionLocal
+from models.database import get_db ,SessionLocal
 from schemas.token import Token
 from crud.user import get_user_by_username
 from fastapi import Depends, HTTPException
@@ -12,7 +12,7 @@ import os
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
 def get_password_hash(password):
     return pwd_context.hash(password)
@@ -21,7 +21,7 @@ def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 async def validate_user(username: str, password: str):
-    user = await get_user_by_username(SessionLocal, username=username)
+    user = await get_user_by_username(get_db, username=username)
     if not user:
         return False
     if not verify_password(password, user.password):
@@ -48,13 +48,12 @@ async def get_current_user(token: Annotated[ str , Depends(oauth2_scheme) ]):
     )
     try:
         payload = jwt.decode(token, os.environ.get("SECRET_KEY"), algorithms=[os.environ.get("JWT_ALGORITHM","HS256")])
-        username: str = payload.get("usr")
+        username: str = payload.get("username")
         if username is None:
             raise credentials_exception
-        token_data = Token(username=username)
     except JWTError:
         raise credentials_exception
-    user = await get_user_by_username(SessionLocal, username=token_data.username)
+    user = get_user_by_username( db = SessionLocal() , username=username)
     if user is None:
         raise credentials_exception
     return user
