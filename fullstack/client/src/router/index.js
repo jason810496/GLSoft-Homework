@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import LoginView from '../views/LoginView.vue'
-import axios from 'axios';
+import { isAuthenticated } from '../modules'
 
 const routes = [
     {
@@ -17,18 +17,8 @@ const routes = [
         component: LoginView,
         meta: { requiresAuth: false },
         beforeEnter: (to, from, next ) => {
-            const token = localStorage.getItem('access_token');
-            axios.get('http://localhost:5001/verify',
-            {
-                headers: { "Authorization": `Bearer ${token}` , "Accept": 'application/json' , "Access-Control-Allow-Origin": '*' }
-            }).then((response) => {
-                console.log(response);
-                if (response.status === 200){
-                    next('/profile');
-                }
-            }).catch((err) => {
-                console.log(err);
-            });
+            if( isAuthenticated()) next("/profile");
+            else next()
         }
     },
     {
@@ -47,17 +37,11 @@ const router = createRouter({
 router.beforeEach((to, from) => {
 // instead of having to check every route record with
 // to.matched.some(record => record.meta.requiresAuth)
-    if (to.meta.requiresAuth ) {
-        const token = localStorage.getItem('access_token');
-        axios.get('http://localhost:5001/verify',
-        {
-            headers: { "Authorization": `Bearer ${token}` , "Accept": 'application/json' , "Access-Control-Allow-Origin": '*' }
-        }).then((response) => {
-            console.log(response);
-        }).catch((err) => {
-            console.log(err);
-            this.$router.push('/login');
-        });
+    if (to.meta.requiresAuth && !isAuthenticated() ) {
+        return {
+            path: '/login',
+            query: { redirect: to.fullPath },
+        }
     }
 })
 
