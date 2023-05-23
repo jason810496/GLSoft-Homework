@@ -18,7 +18,10 @@ def get_user_by_username(username: str):
 
 def get_users():
     db = SessionLocal()
-    return db.query(UserModels).all()
+    result = []
+    for user in db.query(UserModels).all():
+        result.append(UserBase(username=user.username, birthday=user.birthday))
+    return result
 
 def create_user(user: UserCreate):
     db = SessionLocal()
