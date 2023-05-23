@@ -9,9 +9,10 @@
                 <div class="col">
                     <form class="form-group">
                     <div class="form-group mx-sm-3">
-                        <label for="passwordField">Password</label>
-                        <input v-model="form.password" type="text" class="form-control" id="passwordField">
-                        
+                        <label for="hashPasswordField">Password Hash</label>
+                        <input v-model="form.hashPassword" readonly type="text" class="form-control" id="hashPasswordField">
+                        <label for="passwordField">New Password</label>
+                        <input v-model="form.newPassword" type="text" class="form-control" id="passwordField" placeholder="new password">
                     </div>
                     <button type="submit" class="btn btn-primary mx-3" v-on:click="updatePassword">update Password</button>
                     </form>
@@ -41,7 +42,8 @@ export default {
             isLoaded: false,
             form: {
                 username: '',
-                password: '',
+                hashPassword: '',
+                newPassword: '',
             },
         };
     },
@@ -63,7 +65,7 @@ export default {
                 this.isLoaded = true;
                 console.log("response", response);
                 this.form.username = response.data.username;
-                this.form.password = response.data.password;
+                this.form.hashPassword = response.data.password;
                 this.form.birthday = response.data.birthday;
 
             }).catch((error) => {
@@ -77,7 +79,7 @@ export default {
         updatePassword(){
             const token = localStorage.getItem('access_token');
             const payload = {
-                password: this.form.password,
+                password: this.form.newPassword,
             };
             axios.put('http://localhost:5001/user/password' , payload,
             {
@@ -85,6 +87,7 @@ export default {
             }).then((response) => {
 
                 if(response.status == 200) {
+                    this.form.hashPassword = response.data.password;
                     alert("Password updated");
                 }
 
