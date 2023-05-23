@@ -19,7 +19,6 @@
 </template>
   
 <script>
-import NavBar from "../components/NavBar.vue";
 import axios from 'axios';
 import qs from 'qs';
 export default {
@@ -50,6 +49,7 @@ export default {
                 localStorage.setItem('access_token', response.data.access_token);
                 localStorage.setItem('login', 'true' );
                 console.log("localStorage.getItem('access_token')",localStorage.getItem('access_token'));
+
                 this.$router.push('/profile');
             }).catch((err) => {
                 console.log(err);

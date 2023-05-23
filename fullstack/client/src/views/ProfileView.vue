@@ -9,10 +9,10 @@
                 <div class="col">
                     <form class="form-group">
                     <div class="form-group mx-sm-3">
-                        <label for="hashPasswordField">Password Hash</label>
-                        <input v-model="form.hashPassword" readonly type="text" class="form-control" id="hashPasswordField">
+                        <label for="hashPasswordField">Hash Password</label>
+                        <input v-model="form.hashPassword" type="text" class="form-control" id="hashPasswordField" readonly>
                         <label for="passwordField">New Password</label>
-                        <input v-model="form.newPassword" type="text" class="form-control" id="passwordField" placeholder="new password">
+                        <input v-model="form.password" type="text" class="form-control" id="passwordField" placeholder="new password">
                     </div>
                     <button type="submit" class="btn btn-primary mx-3" v-on:click="updatePassword">update Password</button>
                     </form>
@@ -42,8 +42,8 @@ export default {
             isLoaded: false,
             form: {
                 username: '',
+                password: '',
                 hashPassword: '',
-                newPassword: '',
             },
         };
     },
@@ -55,6 +55,8 @@ export default {
             console.log("getUserData");
             const token = localStorage.getItem('access_token');
             console.log("token", token);
+
+            // console.log("this.$store.state.password",this.$store.state.password);
             
            
             axios.get('http://localhost:5001/whoami',
@@ -63,9 +65,12 @@ export default {
             }).then((response) => {
 
                 this.isLoaded = true;
+
+                 // console.log("this.$store.state.password",this.$store.state.password);
                 console.log("response", response);
                 this.form.username = response.data.username;
                 this.form.hashPassword = response.data.password;
+                this.form.password = ''
                 this.form.birthday = response.data.birthday;
 
             }).catch((error) => {
@@ -79,7 +84,7 @@ export default {
         updatePassword(){
             const token = localStorage.getItem('access_token');
             const payload = {
-                password: this.form.newPassword,
+                password: this.form.password,
             };
             axios.put('http://localhost:5001/user/password' , payload,
             {
@@ -88,6 +93,7 @@ export default {
 
                 if(response.status == 200) {
                     this.form.hashPassword = response.data.password;
+                    this.form.password = '';
                     alert("Password updated");
                 }
 
