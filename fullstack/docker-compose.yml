@@ -15,13 +15,13 @@ services:
     depends_on:
       - db
 
-  # frontend:
-  #   build: ./frontend
-  #   volumes:
-  #     - './frontend:/app'
-  #     - '/app/node_modules'
-  #   ports:
-  #     - 8080:8080
+  frontend:
+    build: ./client
+    volumes:
+      - './client:/app'
+      - '/app/node_modules'
+    ports:
+      - 8080:8080
 
   db:
     image: postgres:15.1
