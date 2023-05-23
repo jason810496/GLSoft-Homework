@@ -1,0 +1,2 @@
+psql -U hello_fastapi -d hello_fastapi_dev
+SELECT * FROM users;
