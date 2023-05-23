@@ -14,16 +14,17 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/login")
 
-def get_password_hash(password):
-    return pwd_context.hash(password)
-
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
+def get_password_hash(password):
+    return pwd_context.hash(password)
+
 async def validate_user(username: str, password: str):
-    user = await get_user_by_username(username=username)
+    user = get_user_by_username(username=username)
     if not user:
         return False
+
     if not verify_password(password, user.password):
         return False
     return user

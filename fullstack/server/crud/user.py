@@ -5,6 +5,12 @@ from models.database import SessionLocal
 from models.user import UserModels
 from schemas.user import UserCreate , UserData , UserBase
 from typing import List
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+def get_password_hash(password):
+    return pwd_context.hash(password)
 
 def get_user_by_username(username: str):
     db = SessionLocal()
@@ -12,24 +18,23 @@ def get_user_by_username(username: str):
 
 def get_users():
     db = SessionLocal()
-    # db_user_list = db.query(UserModels).all()
-    # result = []
-    # for db_user in db_user_list:
-    #     result.append(UserBase(username=db_user.username , birthday=db_user.birthday))
-    # return result
     return db.query(UserModels).all()
 
 def create_user(user: UserCreate):
     db = SessionLocal()
-    db_user = UserModels(username=user.username, password=user.password, birthday=user.birthday )
+    db_user = UserModels(username=user.username, password=get_password_hash(user.password), birthday=user.birthday )
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
     return db_user
 
-def update_user_login(username: str):
+async def update_user_login(username: str):
     db = SessionLocal()
-    db_user = db.query(UserModels).filter(UserModels.username == username).first()
+    db_user = await db.query(UserModels).filter(UserModels.username == username).first()
+    # print("======Debug======")
+    # print( db_user )
+    # print( type(db_user.last_login) )
+    # print( db_user.last_login )
     db_user.last_login = datetime.now()
     db.commit()
     db.refresh(db_user)
@@ -46,7 +51,7 @@ def update_birthday(username : str , birthday : datetime):
 def update_password(username: str , password: str ):
     db = SessionLocal()
     db_user = db.query(UserModels).filter(UserModels.username == username).first()
-    db_user.password = password
+    db_user.password = get_password_hash(password)
     db.commit()
     db.refresh(db_user)
     return db_user

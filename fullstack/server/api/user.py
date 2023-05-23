@@ -14,7 +14,7 @@ router = APIRouter()
 
 @router.post("/login")
 async def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends() ] ):
-    user = validate_user(form_data.username, form_data.password)
+    user = await validate_user(form_data.username, form_data.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
