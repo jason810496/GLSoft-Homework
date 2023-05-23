@@ -9,7 +9,7 @@ class UserModels(Base):
     password = Column(VARCHAR)
     birthday = Column(DATE)
     create_time = Column(DateTime , default=datetime.utcnow() )
-    last_login = Column(DateTime , nullable=True )
+    last_login = Column(DateTime , default=datetime.utcnow() )
 
     def __init__(self, username : str , password : str , birthday : datetime ):
         self.username = username

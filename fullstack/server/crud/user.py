@@ -28,14 +28,10 @@ def create_user(user: UserCreate):
     db.refresh(db_user)
     return db_user
 
-async def update_user_login(username: str):
+def update_user_login(username: str):
     db = SessionLocal()
-    db_user = await db.query(UserModels).filter(UserModels.username == username).first()
-    # print("======Debug======")
-    # print( db_user )
-    # print( type(db_user.last_login) )
-    # print( db_user.last_login )
-    db_user.last_login = datetime.now()
+    db_user = db.query(UserModels).filter(UserModels.username == username).first()
+    db_user.last_login = datetime.utcnow()
     db.commit()
     db.refresh(db_user)
     return db_user
