@@ -7,8 +7,7 @@ from databases import Database
 from dotenv import load_dotenv
 
 load_dotenv()
-# DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://hello_fastapi:hello_fastapi@localhost/hello_fastapi_dev")
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://hello_fastapi:hello_fastapi@localhost/hello_fastapi_dev")
+DATABASE_URL = os.getenv("DATABASE_URL")
 DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 # Create engine
 engine = create_engine(DATABASE_URL, echo=True)
