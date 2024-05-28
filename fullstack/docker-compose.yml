@@ -7,7 +7,6 @@ services:
     ports:
       - 5001:5001
     environment:
-      # postgresql://your_postgres_user:your_postgres_password@db:5432/your_postgres_db
       - DATABASE_URL=your_postgres_connection_uri
       - SECRET_KEY=your_secret_key
     volumes:
